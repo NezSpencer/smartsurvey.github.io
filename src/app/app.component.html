@@ -1,0 +1,50 @@
+<!--The whole content below can be removed with the new code.-->
+<div class="material-docs-app">
+  <md-toolbar class="mat-elevation-z3" color="accent">
+    <span>SmartApp Survey Builder</span>
+  </md-toolbar>
+
+  <div *ngIf="!hideShow">
+    <md-card>
+      <md-card-title>Click the button below to begin</md-card-title>
+      <md-card-content>
+        <button md-raised-button color="accent" (click)="hideShow=(hideShow ? false: true)">Create My App</button>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <div *ngIf="hideShow">
+    <div *ngIf="!hideShowForm">
+      <md-card text-align="center">
+        <md-card-content>
+          <form class="example-form" style="text-align:center">
+            <md-input-container class="example-full-width">
+              <input mdInput placeholder="Enter App name" [(ngModel)]="inputBind" required>
+            </md-input-container>
+          </form>
+        </md-card-content>
+        <md-card-content>
+          <button md-raised-button color="accent" (click)="hideShowForm=(hideShowForm ? false: true)">Create App
+          </button>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+
+  <div *ngIf="hideShowForm">
+    <md-card class="md-card-chk">
+      <md-card-header class="docs-example-viewer-title-spacer" _ngcontent-c15="">
+        <md-card-title><h2>Select your desired Survey Questions</h2></md-card-title>
+      </md-card-header>
+      <md-card-content *ngFor="let quest of questions" layout-align="left">
+        <md-checkbox>{{quest.question}}</md-checkbox>
+      </md-card-content>
+      <md-card-content>
+        <button md-raised-button color="accent">Save & Continue
+        </button>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
+
+
