@@ -14,23 +14,31 @@
   </div>
 
   <div *ngIf="hideShow">
+    <div *ngIf="!name; else formInfo">
     <div *ngIf="!hideShowForm">
-      <md-card text-align="center">
-        <md-card-content>
-          <form class="example-form" style="text-align:center">
-            <md-input-container class="example-full-width">
-              <input mdInput placeholder="Enter App name" [(ngModel)]="inputBind" required>
-            </md-input-container>
+    <md-card text-align="center">
+      <md-card-content>
+          <form [formGroup]="myForm" (ngSubmit)="onMySubmit(myForm.value)">
+            <div class="form-group" [ngClass]="{'has-error':!myForm.controls['name'].valid}">
+              <md-input-container class="example-full-width">
+                <input mdInput type="text" class="form-control" formControlName="name"
+                       placeholder="Enter App Name" required>
+              </md-input-container>
+            </div>
           </form>
-        </md-card-content>
-        <md-card-content>
-          <button md-raised-button color="accent" (click)="hideShowForm=(hideShowForm ? false: true)">Create App
-          </button>
-        </md-card-content>
-      </md-card>
+      </md-card-content>
+      <md-card-content>
+        <button md-raised-button color="accent" (click)="hideShowForm=(hideShowForm ? false: true)" type="submit"
+                [disabled]="!myForm.valid">Create App
+        </button>
+      </md-card-content>
+    </md-card>
     </div>
   </div>
+</div>
 
+  <!--check if the name attribute is not empty, then show checkbox to select survey questions-->
+  <div *ngIf="name">
   <div *ngIf="hideShowForm">
     <md-card class="md-card-chk">
       <md-card-header class="docs-example-viewer-title-spacer" _ngcontent-c15="">
@@ -44,7 +52,21 @@
         </button>
       </md-card-content>
     </md-card>
+    <md-card>
+    <md-card-content>
+      <div class="body">{{ myForm.value }}</div>
+    </md-card-content>
+  </md-card>
   </div>
+
+  </div>
+
+  <ng-template #formInfo>
+    <md-card>
+      <md-card-content>
+    <div class="body">{{ name }}</div>
+      </md-card-content>
+    </md-card>
+  </ng-template>
+
 </div>
-
-

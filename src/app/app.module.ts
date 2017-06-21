@@ -1,12 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MdButtonModule, MdCheckboxModule, MdToolbarModule, MdCardModule } from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdToolbarModule, MdCardModule, MdInputModule } from '@angular/material';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule, MdNativeDateModule } from '@angular/material';
 import { HttpModule} from '@angular/http';
-
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -18,6 +17,7 @@ import { AppComponent } from './app.component';
     MdButtonModule,
     MdToolbarModule,
     MdCheckboxModule,
+    MdInputModule,
     NoopAnimationsModule,
     MdCardModule,
     FormsModule,
