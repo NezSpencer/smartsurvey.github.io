@@ -1,0 +1,21 @@
+<div>
+<md-card class="md-card-chk">
+  <md-card-header class="docs-example-viewer-title-spacer" _ngcontent-c15="">
+    <md-card-title><h2>Select your desired Survey Questions</h2></md-card-title>
+  </md-card-header>
+  <md-card-content *ngFor="let quest of questions" layout-align="left">
+    <md-checkbox [(ngModel)]="SelectionStatusOfMutants[quest.question]"> {{quest.question}}</md-checkbox>
+    <!--</form>-->
+  </md-card-content>
+  <md-card-content>
+    <button md-raised-button color="accent" (click)="updateOptions()">Save & Continue
+    </button>
+  </md-card-content>
+</md-card>
+<!--<md-card>
+  <md-card-content>
+    <div class="body">{{ myAppComponent.appNamee}}</div>
+    <div class="body">{{ myAppComponent.userEmaile}}</div>
+  </md-card-content>
+</md-card>-->
+</div>

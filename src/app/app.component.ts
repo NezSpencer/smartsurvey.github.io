@@ -1,10 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {Question} from './question.interface';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormDialogService} from './service/form-dialog.service';
+import {FormDialogComponent} from './form-dialog/form-dialog.component';
+import {MdDialogRef} from '@angular/material';
 
 class AppInfo {
   name: string;
-  id: number;
+  // id: number;
 }
 
 @Component({
@@ -14,10 +17,14 @@ class AppInfo {
 })
 export class AppComponent implements OnInit {
   appInfo: AppInfo;
-  submitted: false;
+  hideShowStr: boolean;
   myForm: FormGroup;
+  fdComp: FormDialogComponent;
+  mref: MdDialogRef<FormDialogComponent>;
+  cForm: FormGroup;
   name: '';
-  post: any;
+  public result: any;
+  SelectionStatusOfMutants: any = {};
   public questions: Question[] = [
     {id: 1, question: 'What is your preferred closure time from work'},
     {id: 2, question: 'What is your favorite Nigerian Network'},
@@ -36,18 +43,43 @@ export class AppComponent implements OnInit {
    })
    }*/
   ngOnInit() {
+    this.appInfo = new AppInfo;
+    this.fdComp = new FormDialogComponent(this.mref, new FormBuilder );
   }
 
-  onMySubmit(post) {
-    this.name = post.name;
+
+  onHideShow() {
+    this.hideShowStr = true;
+  }
+
+  onMySubmit() {
+    // this.name = post.name;
     console.log('Form Data: ');
-    console.log(this.myForm.value);
+    console.log(this.name);
+    console.log(this.myForm.value.name);
+    // console.log(post.name);
+  }
+  updateOptions() {
+    const selecteds = Object.keys(this.SelectionStatusOfMutants).filter((item, index) => {
+      return this.SelectionStatusOfMutants[item];
+    });
+    // this.appInfo = '';
+    console.log(selecteds);
+    console.log(this.myForm.value.name);
+    console.log(this.appInfo.name);
+  }
+  public openMyDialog(hideshows: boolean) {
+  this.fService
+    .openEmojiDialog();
+  this.hideShowStr = hideshows;
+    // .subscribe(res => this.result = res);
+}
+  constructor(fb: FormBuilder, public fService: FormDialogService) {
+    this.myForm = fb.group({
+      name: [null, Validators.required],
+    });
+    this.appInfo.name = this.fdComp.rForm.value.appColore;
   }
 
-  constructor(fb: FormBuilder) {
-    this.myForm = fb.group({
-      name: [null, Validators.required]
-    });
-    // this.name = this.myForm.controls['name'];
-  }
+
 }
