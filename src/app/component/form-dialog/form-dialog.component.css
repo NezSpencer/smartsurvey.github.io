@@ -1,0 +1,102 @@
+
+.body {
+  margin: -10px;
+  font-family: Roboto, sans-serif;
+  position:absolute;
+  width: 100%;
+}
+md-toolbar {
+  justify-content: space-between;
+  margin: 0;
+  z-index: 10;
+  position: relative;
+  max-width:120%;
+}
+
+.material-docs-app {
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-box-orient:vertical;
+  -webkit-box-direction:normal;
+  -ms-flex-direction:column;
+  flex-direction:column
+}
+
+md-card {
+  max-width: 40%;
+  margin: 1em auto;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.md-card-chk {
+  max-width: 40%;
+  margin: 1em auto;
+  text-align: left;
+  background-color: #ffffff;
+}
+.md-card-right {
+  margin: 1em auto;
+  text-align: right;
+  align-items: flex-end;
+  -ms-flex-align: end;
+  position: relative;
+  background-color: #ffffff;
+}
+label {
+  font-weight:bold;
+  margin:1.5em 0;
+  display:block;
+}
+
+page-padding {
+  padding: 0 1.5em 1.5em 1.5em;
+}
+spacer {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+.example-form {
+  width: 500px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+[_nghost-c15] {
+  display:block
+}
+.docs-example-viewer-wrapper{
+  margin-top:10px
+}
+.docs-example-viewer-title[_ngcontent-c15] {
+  -ms-flex-line-pack:start;
+  align-content:flex-start;
+  -webkit-box-align:start;
+  -ms-flex-align:start;
+  align-items:flex-start;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-box-pack:start;
+  -ms-flex-pack:start;
+  justify-content:flex-start;
+  padding:8px 20px
+}
+.docs-example-viewer-title-spacer[_ngcontent-c15] {
+  background-color: gainsboro;
+  font-weight: bold;
+  text-align: inherit;
+  padding: 15px;
+  margin: -25px -24px 20px -25px;
+}
+.docs-example-viewer-body[_ngcontent-c15] {
+  padding:30px
+}

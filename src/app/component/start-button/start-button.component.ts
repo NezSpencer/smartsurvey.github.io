@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormDialogService} from '../../service/form-dialog.service';
 
 @Component({
   selector: 'app-start-button',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartButtonComponent implements OnInit {
 
-  constructor() { }
+  constructor(public fService: FormDialogService) { }
 
   ngOnInit() {
+  }
+  public openMyDialog() {
+    this.fService
+      .openEmojiDialog();
   }
 
 }

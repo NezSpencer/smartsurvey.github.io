@@ -42,6 +42,25 @@ md-card {
   text-align: left;
   background-color: #ffffff;
 }
+.md-card-chk-center {
+  max-width: 100%;
+  margin: 1em auto;
+  text-align: center;
+  background-color: #ffffff;
+}
+.md-card-right {
+  margin: 1em auto;
+  text-align: right;
+  align-items: flex-end;
+  -ms-flex-align: end;
+  position: relative;
+  background-color: #ffffff;
+}
+
+md-grid-tile {
+  background: lightslategray;
+}
+
 label {
     font-weight:bold;
     margin:1.5em 0;
@@ -92,4 +111,21 @@ spacer {
 }
 .docs-example-viewer-body[_ngcontent-c15] {
   padding:30px
+}
+
+#example1 {
+  color: white;
+  font-size: 20pt;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 20px
+}
+
+.app-name {
+  background-image: url('../assets/dark_bg.png');
+  height:100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }

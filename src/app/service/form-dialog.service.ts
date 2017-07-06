@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
-import {FormDialogComponent} from '../form-dialog/form-dialog.component';
+import {FormDialogComponent} from '../component/form-dialog/form-dialog.component';
+import {Router} from '@angular/router';
+import {AppInfo} from '../model/AppInfo';
 
 
 @Injectable()
@@ -13,33 +15,29 @@ export class FormDialogService {
     width: '400px',
     height: '500px'
   };
-  nameStr: string;
+  public nameStr: string;
+  public hideShowStr: boolean;
+  meeComp: AppInfo;
 
 
-  constructor(public dialog: MdDialog) {}
+  constructor(public dialog: MdDialog, public router: Router) {
+    this.hideShowStr = false;
+  }
   openEmojiDialog() {
     this.dialogRef = this.dialog.open(FormDialogComponent, <MdDialogConfig>this.config);
 
     this.dialogRef.afterClosed()
       .subscribe(selection => {
         if (selection) {
-          this.nameStr = selection;
+          this.meeComp = selection;
+          this.router.navigate(['question']);
         } else {
           // User clicked 'Cancel' or clicked outside the dialog
+          this.hideShowStr = true;
         }
       });
   }
-/*  public openDialog(title: string, message: string): Observable<boolean> {
-
-    let dialogRef: MdDialogRef<FormDialogComponent>;
-
-    dialogRef = this.dialog.open(FormDialogComponent);
-
-    dialogRef.componentInstance.title = title;
-    dialogRef.componentInstance.message = message;
-
-    return dialogRef.afterClosed();
-  }*/
-
-
+  getAppInfo() {
+    return this.meeComp;
+  }
 }

@@ -3,27 +3,36 @@
   <br xml:space="default"/>
   <br xml:space="default"/>
   <div class="example-full-width">
-  <form [formGroup]="rForm" (ngSubmit)="saveForm(hideshowDial)" class="example-full-width">
+  <form [formGroup]="rForm" (ngSubmit)="saveForm()" class="example-full-width">
     <div class="form-group" [ngClass]="{'has-error':!rForm.controls['appNamee'].valid}">
       <md-input-container class="example-full-width" style="width:100%">
-        <input mdInput type="text" class="form-control" formControlName="appNamee" [(ngModel)]="myAppComponent.appNamee"
+        <input mdInput type="text" formControlName="appNamee" [(ngModel)]="myAppComponent.appNamee"
                placeholder="Enter App Name" required>
       </md-input-container>
       </div>
+    <!--<br xml:space="default"/>
+    <div class="form-group" [ngClass]="{'has-error':!rForm.controls['appNamee'].valid}">
+        <input [(colorPicker)]="color"
+               [style.background]="color"
+               [value]="color"
+               [cpOKButton]="true"
+               [cpSaveClickOutside]="false"
+               [cpOKButtonClass]= "'btn btn-primary btn-xs'" (click)="changeColor()"/>
+      </div>-->
     <br xml:space="default"/>
     <div class="form-group" [ngClass]="{'has-error':!rForm.controls['appColore'].valid}">
       <div md-dialog-content="">
-      <md-input-container class="example-full-width" style="width:100%">
-        <input mdInput type="text" class="form-control" formControlName="appColore" [(ngModel)]="myAppComponent.appColore"
+      <md-input-container class="example-full-width" style="width:90%">
+        <input mdInput type="text" formControlName="appColore" [(ngModel)]="myAppComponent.appColore"
                placeholder="App Menu Color (#000fff)" required>
-      </md-input-container>
+      </md-input-container><!--<button type="button" class="btn btn-primary btn-sm" (click)="changeColor()">set</button>-->
       </div>
       <br xml:space="default"/>
     </div>
     <div class="form-group" [ngClass]="{'has-error':!rForm.controls['userEmaile'].valid}">
       <div md-dialog-content="">
       <md-input-container class="example-full-width" style="width:100%">
-        <input mdInput type="text" class="form-control" formControlName="userEmaile" [(ngModel)]="myAppComponent.userEmaile"
+        <input mdInput type="text" formControlName="userEmaile" [(ngModel)]="myAppComponent.userEmaile"
                placeholder="User Email" required>
       </md-input-container>
       </div>
@@ -33,7 +42,7 @@
     <button md-raised-button color="primary" (click)="dialogRef.close()" type="submit"
              style="margin-right: 40px">Cancel
     </button>
-    <button md-raised-button color="accent" (click)="saveForm(hideshowDial)" type="submit"
+    <button md-raised-button color="accent" (click)="saveForm()" type="submit"
             [disabled]="!rForm.valid">Save
     </button></div>
   </form>

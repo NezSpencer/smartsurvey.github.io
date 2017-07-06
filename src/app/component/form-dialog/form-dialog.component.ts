@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, HostListener, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MdDialog, MdDialogRef} from '@angular/material';
-import {FormDialogService} from '../service/form-dialog.service';
-import {AppInfo} from '../model/AppInfo';
+import {AppInfo} from '../../model/AppInfo';
+import {ColorPickerService} from 'angular4-color-picker';
 
 
 @Component({
@@ -14,64 +14,34 @@ import {AppInfo} from '../model/AppInfo';
 })
 export class FormDialogComponent implements OnInit {
   rForm: FormGroup;
+  private color: string;
   public myAppComponent: AppInfo;
   hideshowDial: boolean;
   // constructor() {}
-  constructor(public dialogRef: MdDialogRef<FormDialogComponent>, public fb: FormBuilder) {
+  constructor(public dialogRef: MdDialogRef<FormDialogComponent>, public fb: FormBuilder, public cpService: ColorPickerService) {
     this.rForm = this.fb.group({
       appNamee: [null, Validators.required],
       appColore: [null, Validators.required],
       userEmaile: [null, Validators.required]
-    })
+    });
+    this.color = '#127cdc';
   }
   public ngOnInit() {
     this.myAppComponent = new AppInfo;
-    this.hideshowDial = true;
-    this.myAppComponent.hasValue = false;
 
   }
-  public saveForm(hidDia: boolean) {
+  public saveForm() {
     // do the business logic
     this.dialogRef.close(this.myAppComponent);
-    console.log(this.myAppComponent.userEmaile)
-    this.hideshowDial = hidDia;
+    const mm = this.dialogRef.afterClosed().map(res => res.json);
+    console.log(this.myAppComponent.userEmaile);
+    console.log('sub mm inside form dia == ' + mm);
   }
 
-  /*  constructor(
-   private fb: FormBuilder,
-   private dialogRef: MdDialogRef<FormDialogComponent>) { }
-   public ngOnInit() {
-   this.form = this.fb.group({
-   'appName' : this.appName,
-   'appColor': this.appColor,
-   'userEmail': this.userEmail}
-   );
-   }
-   public saveForm() {
-   // do the business logic
-   }
-   openDialog() {
-   const mDialogRef = this.dialogRef.open(FormDialogComponent);
+  changeColor() {
+    console.log('selected color == ' + this.color);
+  }
 
-   // If you need a result from your dialog
-   mDialogRef.afterClosed().subscribe(result => {
-   // Do something with result, if needed.
-   });
-   }
-
-   @HostListener('keydown.esc')
-   public onEsc(): void {
-   this.dialogRef.closeAll();
-   }*/
 }
-
-/*  export class ConfirmDialog {
-
-  public title: string;
-  public message: string;
-
-  constructor(public dialogRef: MdDialogRef<ConfirmDialog>) {
-
-  }*/
 
 
