@@ -19,16 +19,23 @@ import {StartButtonComponent} from './component/start-button/start-button.compon
 import {AppInfo} from './model/AppInfo';
 import { ToastModule, ToastOptions } from 'ng2-toastr';
 import { CustomOption } from './custom-option';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
 import {ColorPickerModule, ColorPickerService} from 'angular4-color-picker';
+import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
+import { EditAppComponent } from './component/edit-app/edit-app.component';
+import { DashboardrootComponent } from './component/dashboardroot/dashboardroot.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormDialogComponent,
+    ConfirmDialogComponent,
     QuestionComponent,
     StartButtonComponent,
     DashboardComponent,
+    ConfirmDialogComponent,
+    EditAppComponent,
+    DashboardrootComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,13 +64,18 @@ import {ColorPickerModule, ColorPickerService} from 'angular4-color-picker';
       },
       {
         path: 'dashboard/:id',
-        component: DashboardComponent
+        component: DashboardComponent,
+        children: [
+          {path: '', redirectTo: 'dashome', pathMatch: 'full'},
+          {path: 'dashome', component: DashboardrootComponent},
+          {path: 'edit', component: EditAppComponent},
+        ]
       }
     ])
   ],
   exports: [MdButtonModule, MdCheckboxModule, MdToolbarModule],
   providers: [FormDialogService, AppInfoService, AppInfo, ColorPickerService, {provide: ToastOptions, useClass: CustomOption}],
-  entryComponents: [FormDialogComponent],
+  entryComponents: [FormDialogComponent, ConfirmDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

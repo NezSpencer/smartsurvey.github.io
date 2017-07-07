@@ -5,6 +5,7 @@ import {FormDialogService} from '../../service/form-dialog.service';
 import {AppInfoService} from '../../service/app-info.service';
 import {ToastsManager, Toast} from 'ng2-toastr';
 import {Router} from '@angular/router';
+import {QuestionModel} from '../../model/QuestionModel';
 
 export class OnCreateResponse {
   status: string;
@@ -27,18 +28,8 @@ export class QuestionComponent implements OnInit {
   submitPending: boolean;
   SelectionStatusOfMutants: any[] = [];
   // SelectionStatusOfMutants: any = {};
-  public questions: Question[] = [
-    {id: 1, question: 'What is your preferred closure time from work'},
-    {id: 2, question: 'What is your favorite Nigerian Network'},
-    {id: 3, question: 'What is your most loved programming language'},
-    {id: 4, question: 'Will you say you prefer Angular 1 to Angular'},
-    {id: 5, question: 'Which Android OS have you enjoyed till date'},
-    {id: 6, question: 'What do you believe is the problem of Nigeria as a Nation'},
-    {id: 7, question: 'Do you think Biafra should be given their own republic'},
-    {id: 8, question: 'Can we know your favorite color'},
-    {id: 9, question: 'What will you say is the most important technology breakthrough till date'},
-    {id: 10, question: 'Do you think Google\'s Assistant is ready to compete with Apple\'s Siri'}
-  ];
+  public qquestions: QuestionModel;
+  questions: any;
 
   constructor(private fdService: FormDialogService,
               private appInfoService: AppInfoService,
@@ -50,6 +41,8 @@ export class QuestionComponent implements OnInit {
     this.mmC = new AppInfo;
     this.mmC.hasValue = false;
     this.submitPending = true;
+    this.qquestions = new QuestionModel;
+    this.questions = this.qquestions.mQuestion;
     this.retAppi = new AppInfo;
     this.respObj = new OnCreateResponse;
     this.surveyUrl = 'http://34.211.157.223/smartsurvey_api/public/api/v1/Question';
@@ -103,21 +96,6 @@ export class QuestionComponent implements OnInit {
       });
 
   }
-
-  /*loadAppInfo() {
-   // Get all comments
-   this.appInfoService.getAppById()
-   .subscribe(
-   comments => {
-   console.log('returned my app info == ' + comments.apiurl + ' comm == ' + comments.questions);
-   this.showSuccess('success', 'success')
-   }, // Bind to view
-   err => {
-   // Log errors if any
-   console.log('inside load app id error == ' + err.json);
-   this.showError('Error', 'error')
-   });
-   }*/
   showSuccess(text: string, title: string, appId: any) {
     this.toastr.success(text, title, {toastLife: 3000, showCloseButton: false});
     setTimeout(() => {
