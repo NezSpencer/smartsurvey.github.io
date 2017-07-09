@@ -24,6 +24,7 @@ import {ColorPickerModule, ColorPickerService} from 'angular4-color-picker';
 import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
 import { EditAppComponent } from './component/edit-app/edit-app.component';
 import { DashboardrootComponent } from './component/dashboardroot/dashboardroot.component';
+import {BusyModule} from 'angular2-busy';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { DashboardrootComponent } from './component/dashboardroot/dashboardroot.
     MdDialogModule,
     MdGridListModule,
     ColorPickerModule,
+    BusyModule,
     ToastModule.forRoot(),
     RouterModule.forRoot([
       {
@@ -66,8 +68,8 @@ import { DashboardrootComponent } from './component/dashboardroot/dashboardroot.
         path: 'dashboard/:id',
         component: DashboardComponent,
         children: [
-          {path: '', redirectTo: 'dashome', pathMatch: 'full'},
-          {path: 'dashome', component: DashboardrootComponent},
+          {path: '', redirectTo: 'view', pathMatch: 'full'},
+          {path: 'view', component: DashboardrootComponent},
           {path: 'edit', component: EditAppComponent},
         ]
       }

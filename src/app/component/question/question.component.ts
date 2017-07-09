@@ -80,16 +80,11 @@ export class QuestionComponent implements OnInit {
       'appname': this.mmC.appNamee, 'colour': this.mmC.appColore,
       'questions': this.mmC.question
     }).subscribe(res => {
-        // this.respObj = res;
-        console.log('returned response from service == ' + res.status);
-        console.log('returned response from service STR == ' + res.toString());
-        console.log('returned response from service JSON == ' + res.appid);
         this.submitPending = true;
         this.showSuccess('We are creating your App, we will get back to you when we are done', 'success', res.appid)
-        // this.router.navigate(['']);
       },
       error => {
-        this.showError('An Error Occurred', 'error')
+        this.showError('An Error Occurred, please check your network', 'error')
         this.submitPending = false;
         console.log('Error status code json = ' + error.json + ' \nerror status = ' + error.status);
         // this.loadAppInfo();
@@ -106,7 +101,6 @@ export class QuestionComponent implements OnInit {
 
   showError(text: string, title: string) {
     this.toastr.error(text, title);
-
   }
 
 }

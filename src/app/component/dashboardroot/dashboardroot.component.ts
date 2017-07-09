@@ -5,6 +5,7 @@ import {FormDialogService} from '../../service/form-dialog.service';
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 import {AppModel} from '../../model/AppModel';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {Subscription} from 'rxjs/Subscription';
 
 
 declare var swal: any;
@@ -21,6 +22,7 @@ export class DashboardrootComponent implements OnInit, OnChanges, OnDestroy {
   loaded: boolean;
   namee: string;
   private sub: any;
+  busy: Subscription;
   private config = {
     disableClose: true,
     panelClass: 'custom-overlay-pane-class',
@@ -42,11 +44,23 @@ export class DashboardrootComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
     this.appInfo = new AppModel;
     this.loaded = false;
-    this.getAppDetail();
+    // this.getAppDetail();
+    this.busy = this.appInfoService.getAppById(this.mId)
+      .subscribe(mApp => {
+        this.appInfo = mApp;
+        this.namee = mApp.appname;
+        console.log('app details question == ' + mApp.questions + ' name in dash == ' + this.namee)
+        if (this.namee = '') {
+          this.loaded = true;
+        }
+      }, err => {
+        console.log('app with id = ' + this.mId + ' could not be loaded ' + ' error ' + err);
+        this.loaded = true;
+      });
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.busy.unsubscribe();
   }
 
 
@@ -57,8 +71,7 @@ export class DashboardrootComponent implements OnInit, OnChanges, OnDestroy {
 
   // open create app dialog
   public openMyDialog() {
-    this.fdservice
-      .openEmojiDialog();
+    this.fdservice.openEmojiDialog();
   }
 
   getAppDetail() {
@@ -91,7 +104,7 @@ export class DashboardrootComponent implements OnInit, OnChanges, OnDestroy {
             swal('Deleted!', 'App successfully deleted.', 'success');
             // this.getAppDetail();
             // TODO: reload page on successful deletion
-            // mm.router.navigate(['dashboard', mm.mId]);
+            mm.router.navigate(['dashboard', mm.mId]);
             mm.getAppDetail()
           }, err => {
             console.log('app not deleted: ' + err)
