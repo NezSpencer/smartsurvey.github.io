@@ -20,14 +20,15 @@ export class DashboardrootComponent implements OnInit, OnChanges, OnDestroy {
   private mId: any;
   private appInfo: AppModel;
   loaded: boolean;
-  namee: string;
+  initializing: boolean;
+  namee: any;
   private sub: any;
   busy: Subscription;
   private config = {
     disableClose: true,
     panelClass: 'custom-overlay-pane-class',
-    /*width: '400px',
-     height: '500px'*/
+    width: '300px',
+     height: '200px'
   };
 
   private dialogRef: MdDialogRef<ConfirmDialogComponent>;
@@ -44,17 +45,17 @@ export class DashboardrootComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
     this.appInfo = new AppModel;
     this.loaded = false;
+    this.initializing = true;
+    console.log('name on init == ' + this.namee);
     // this.getAppDetail();
     this.busy = this.appInfoService.getAppById(this.mId)
       .subscribe(mApp => {
         this.appInfo = mApp;
         this.namee = mApp.appname;
-        console.log('app details question == ' + mApp.questions + ' name in dash == ' + this.namee)
         if (this.namee = '') {
           this.loaded = true;
         }
       }, err => {
-        console.log('app with id = ' + this.mId + ' could not be loaded ' + ' error ' + err);
         this.loaded = true;
       });
   }
@@ -66,7 +67,6 @@ export class DashboardrootComponent implements OnInit, OnChanges, OnDestroy {
 
   editWithId() {
     this.router.navigate(['edit'], {relativeTo: this.aRoute.parent});
-    // console.log('DASHBOARD: ret id == ' + this.mId + ' app info name == ' + this.appInfo.appname);
   }
 
   // open create app dialog
@@ -79,12 +79,11 @@ export class DashboardrootComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe(mApp => {
         this.appInfo = mApp;
         this.namee = mApp.appname;
-        console.log('app details question == ' + mApp.questions + ' name in dash == ' + this.namee)
         if (this.namee = '') {
           this.loaded = true;
+          this.initializing = false;
         }
       }, err => {
-        console.log('app with id = ' + this.mId + ' could not be loaded ' + ' error ' + err);
         this.loaded = true;
       });
   }
@@ -98,16 +97,13 @@ export class DashboardrootComponent implements OnInit, OnChanges, OnDestroy {
     this.dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // do confirmation actions
-        this.sub = this.appInfoService.deleteApp(this.mId)
+        this.busy = this.appInfoService.deleteApp(this.mId)
           .subscribe(res => {
-            console.log('app successfully deleted: ' + res)
             swal('Deleted!', 'App successfully deleted.', 'success');
-            // this.getAppDetail();
+            mm.getAppDetail();
             // TODO: reload page on successful deletion
             mm.router.navigate(['dashboard', mm.mId]);
-            mm.getAppDetail()
           }, err => {
-            console.log('app not deleted: ' + err)
             swal('Error!', 'Request could not be completed', 'error');
           });
       }

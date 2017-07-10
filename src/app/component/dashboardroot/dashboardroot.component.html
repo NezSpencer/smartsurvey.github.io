@@ -9,7 +9,7 @@
         <th></th>
       </tr>
       <tr>
-        <td style="padding: 20px" [hidden]="!appInfo.appname">
+        <td style="padding: 20px" *ngIf="!loaded && appInfo.appname">
           <md-grid-list cols="1" rowHeight="200px">
             <md-grid-tile>
               <div class="app-name">
