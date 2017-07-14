@@ -59,7 +59,9 @@ export class EditAppComponent implements OnInit, OnChanges, OnDestroy {
 }
 
   ngOnDestroy(): void {
-    this.busy.unsubscribe();
+    if (this.busy != null) {
+      this.busy.unsubscribe();
+    }
   }
 
   updateForm() {

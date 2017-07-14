@@ -8,8 +8,8 @@ import {OnCreateResponse} from '../component/question/question.component';
 export class AppInfoService {
   // headers: Headers;
 
-  private url= 'http://34.211.157.223/smartsurvey_api/public/api/v1/Question';
-  private appIdUrl= 'http://34.211.157.223/smartsurvey_api/public/api/v1/Question/';
+  private url= 'http://34.211.211.38/smartsurvey_api/public/api/v1/Question';
+  private appIdUrl= 'http://34.211.211.38/smartsurvey_api/public/api/v1/Question/';
   private headers;
   private options;
   constructor(protected http: Http) {

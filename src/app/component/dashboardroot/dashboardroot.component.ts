@@ -28,7 +28,7 @@ export class DashboardrootComponent implements OnInit, OnChanges, OnDestroy {
     disableClose: true,
     panelClass: 'custom-overlay-pane-class',
     width: '300px',
-     height: '200px'
+    height: '200px'
   };
 
   private dialogRef: MdDialogRef<ConfirmDialogComponent>;
@@ -61,7 +61,9 @@ export class DashboardrootComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.busy.unsubscribe();
+    if (this.busy != null) {
+      this.busy.unsubscribe();
+    }
   }
 
 

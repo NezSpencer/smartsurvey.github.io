@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, Type, ViewContainerRef} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, Type, ViewContainerRef} from '@angular/core';
 import {AppInfo} from '../../model/AppInfo';
 import {Question} from '../../question.interface';
 import {FormDialogService} from '../../service/form-dialog.service';
@@ -6,6 +6,7 @@ import {AppInfoService} from '../../service/app-info.service';
 import {ToastsManager, Toast} from 'ng2-toastr';
 import {Router} from '@angular/router';
 import {QuestionModel} from '../../model/QuestionModel';
+import {Subscription} from 'rxjs/Subscription';
 
 export class OnCreateResponse {
   status: string;
@@ -18,7 +19,8 @@ export class OnCreateResponse {
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.css']
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent implements OnInit, OnDestroy {
+
 
   mmC: AppInfo;
   formcc: FormDialogService;
@@ -27,6 +29,7 @@ export class QuestionComponent implements OnInit {
   surveyUrl: string;
   submitPending: boolean;
   SelectionStatusOfMutants: any[] = [];
+  busy: Subscription;
   // SelectionStatusOfMutants: any = {};
   public qquestions: QuestionModel;
   questions: any;
@@ -45,7 +48,7 @@ export class QuestionComponent implements OnInit {
     this.questions = this.qquestions.mQuestion;
     this.retAppi = new AppInfo;
     this.respObj = new OnCreateResponse;
-    this.surveyUrl = 'http://34.211.157.223/smartsurvey_api/public/api/v1/Question';
+    this.surveyUrl = 'http://34.211.211.38/smartsurvey_api/public/api/v1/Question';
   }
 
   imChecked() {
@@ -70,12 +73,13 @@ export class QuestionComponent implements OnInit {
       });
     this.mmC = this.fdService.getAppInfo();
     this.mmC.question = selecteds;
+    console.log('color logger = ' + this.mmC.appColore)
     this.retrievePosted();
 
   }
 
   retrievePosted() {
-    this.appInfoService.postJson({
+    this.busy = this.appInfoService.postJson({
       'email': this.mmC.userEmaile,
       'appname': this.mmC.appNamee, 'colour': this.mmC.appColore,
       'questions': this.mmC.question
@@ -95,12 +99,18 @@ export class QuestionComponent implements OnInit {
     this.toastr.success(text, title, {toastLife: 3000, showCloseButton: false});
     setTimeout(() => {
       this.router.navigate(['dashboard', appId]);
-    }, 5000);  // 5s
+    }, 4000);  // 5s
     // this.router.navigate(['']);
   }
 
   showError(text: string, title: string) {
     this.toastr.error(text, title);
+  }
+
+  ngOnDestroy(): void {
+    if (this.busy != null) {
+      this.busy.unsubscribe();
+    }
   }
 
 }

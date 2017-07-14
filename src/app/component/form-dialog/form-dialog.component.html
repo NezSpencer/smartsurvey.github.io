@@ -14,11 +14,15 @@
 
     <br xml:space="default"/>
     <div class="form-group" [ngClass]="{'has-error':!rForm.controls['appColore'].valid}">
+      <div class="btn-group" *ngFor="let mColor of colorArr">
+      <button class="btn btn-primary btn-xs" [ngStyle]="{'background-color':  mColor.cValue, 'margin': '5px'}"
+              value="mColor.value" type="button" (click)="setColor(mColor.cValue)">{{mColor.cName}}</button>
+      </div>
       <div md-dialog-content="">
-      <md-input-container class="example-full-width" style="width:90%">
+      <md-input-container class="example-full-width" style="width:100%">
         <input mdInput type="text" formControlName="appColore" [(ngModel)]="myAppComponent.appColore"
-               placeholder="App Menu Color (#000fff)" required>
-      </md-input-container><!--<button type="button" class="btn btn-primary btn-sm" (click)="changeColor()">set</button>-->
+               [value]="color" placeholder="App Menu Color (#000fff)" readonly>
+      </md-input-container>
       </div>
 
       <br xml:space="default"/>
