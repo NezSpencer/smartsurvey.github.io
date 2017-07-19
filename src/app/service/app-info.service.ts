@@ -3,6 +3,7 @@ import {Headers, Http, RequestMethod, RequestOptions, Response} from '@angular/h
 import {Observable} from 'rxjs/Observable';
 import {AppModel} from '../model/AppModel';
 import {OnCreateResponse} from '../component/question/question.component';
+import 'rxjs/Rx';
 
 @Injectable()
 export class AppInfoService {
